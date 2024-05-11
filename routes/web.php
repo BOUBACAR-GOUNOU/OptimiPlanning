@@ -1,8 +1,9 @@
 <?php
-
+use App\Http\Controllers\BinomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('auth.login');
@@ -24,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::post('import', [BinomeController::class, 'importExcel'])->name('import.excel');
 
 
 

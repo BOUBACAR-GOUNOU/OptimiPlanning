@@ -1,8 +1,9 @@
 <?php
-
+use App\Http\Controllers\BinomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('auth.login');
@@ -25,6 +26,10 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::post('import', [BinomeController::class, 'importExcel'])->name('import.excel');
+
+use App\Http\Controllers\juryController;
+Route::post('maker-jury', [juryController::class, 'constituerJurys'])->name('maker.jury');
 
 
 

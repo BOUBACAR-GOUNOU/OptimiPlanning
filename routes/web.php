@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
 
 Route::post('import', [BinomeController::class, 'importExcel'])->name('import.excel');
 
+use App\Http\Controllers\juryController;
+Route::post('maker-jury', [juryController::class, 'constituerJurys'])->name('maker.jury');
 
 
 

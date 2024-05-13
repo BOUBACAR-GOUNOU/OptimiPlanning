@@ -100,7 +100,7 @@ class BinomeController extends Controller
                         // Créer un nouvel enregistrement Binome
                         enseignant::create([
                             'nom' => $rowEn[0],
-                            'numero' => $rowEn[1],
+                            'email' => $rowEn[1],
                             'grade' => $rowEn[2],
                             'filiere' => $rowEn[3],
                             'annee' => $rowEn[4]

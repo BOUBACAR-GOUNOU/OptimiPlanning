@@ -15,6 +15,8 @@ return new class extends Migration
             // Clé primaire
             $table->id();
             // Colonnes
+            $table->string('filiere');
+            $table->integer('annee');
             $table->string('president');
             $table->string('examinateur');
             $table->string('rapporteur');

@@ -16,7 +16,7 @@ class Jury extends Model
      * @var array
      */
     protected $fillable = [
-        'president', 'examinateur', 'rapporteur',
+        'president', 'examinateur', 'rapporteur'
     ];
 
     /**

@@ -12629,3 +12629,34 @@ body.sidebar-toggled footer.sticky-footer {
       opacity: 1;
   }
 }
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .print-only, .print-only * {
+        visibility: visible;
+    }
+}
+
+@media print {
+    .no-print {
+        display: none;
+    }
+}
+
+@media print {
+    .exclude-from-print {
+        display: none !important;
+    }
+}
+
+.print-title {
+    display: none;
+}
+
+@media print {
+    .print-title {
+        display: block !important;
+    }
+}

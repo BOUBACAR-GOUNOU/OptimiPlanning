@@ -33,8 +33,8 @@
             <label for="etudiantFile">Sélectionner fichier étudiant</label>
             <input type="file" class="form-control-file" id="etudiantFile" name="etudiant_file">
             <div class="progress mt-2" style="display: none;">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0"
-                    aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar"
+                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
             </div>
         </div>
 
@@ -85,14 +85,18 @@
                 progressBar.querySelector('.progress-bar').setAttribute('aria-valuenow', progress);
             } else {
                 clearInterval(interval);
-                progressBar.style.display = 'none'; // Cacher la barre de progression une fois terminée
-                // Afficher le message de succès ou d'erreur (simulé ici)
-                var success = Math.random() < 0.5; // Simuler une importation réussie ou échouée
-                if (success) {
-                    document.querySelector('.alert-success').style.display = 'block';
-                } else {
-                    document.querySelector('.alert-danger').style.display = 'block';
-                }
+                // Afficher le message de succès après un délai supplémentaire
+                setTimeout(function() {
+                    progressBar.style.display = 'none'; // Cacher la barre de progression
+                    // Afficher le message de succès
+                    var success = Math.random() < 0.5; // Simuler une importation réussie ou échouée
+                    if (success) {
+                        document.querySelector('.alert-success').style.display = 'block';
+                        document.querySelector('.progress-bar').classList.add('bg-success'); // Ajouter la classe pour la couleur verte
+                    } else {
+                        document.querySelector('.alert-danger').style.display = 'block';
+                    }
+                }, 3000); // Définir un délai de 3 secondes supplémentaires avant d'afficher le message de succès
             }
         }, 1000);
         

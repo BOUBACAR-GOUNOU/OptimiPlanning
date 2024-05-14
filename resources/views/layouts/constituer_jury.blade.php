@@ -64,6 +64,17 @@
     <div class=" mb-5">
         <form action="{{ route('maker.jury') }}" method="post" enctype="multipart/form-data">
             @csrf
+
+            <div class="form-group">
+                <label for="date">Date de début des soutenances</label>
+                <input type="date" class="form-control form-control-user rounded-pill" id="date" name="date"
+                    placeholder="Date début" style="width: 200px;" required>
+                @error('date')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+
             <button class="btn btn-primary" type="submit">Générer</button>
         </form>
     </div>

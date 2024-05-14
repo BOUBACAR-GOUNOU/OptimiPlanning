@@ -20,6 +20,13 @@ return new class extends Migration
             $table->string('president');
             $table->string('examinateur');
             $table->string('rapporteur');
+            $table->string('heure_soutenance');
+            $table->string('date_soutenance');
+            $table->foreignId('id_binome')->references('id')->on('binomes')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->string('salle');
             // Timestamps (facultatif)
             $table->timestamps();
         });

@@ -6,16 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Binome;
 use App\Models\Enseignant;
 use App\Models\Jury;
+use App\Models\salle;
 
 class PostController extends Controller
 {
     public function index()
     {
         $planifications = $this->fetchPlanifications();
-    $binomes = $this->fetchBinomes();
-    $enseignants = $this->fetchEnseignants();
+        $binomes = $this->fetchBinomes();
+        $enseignants = $this->fetchEnseignants();
+        $salles = salle::where('annee', '=', 2024)
+                       ->get();
+        
 
-    return view('layouts.index', compact('planifications', 'binomes', 'enseignants'));
+
+    return view('layouts.index', compact('planifications', 'binomes', 'enseignants','salles'));
     }
 
 

@@ -198,4 +198,14 @@ class JuryController extends Controller
  
          return redirect()->route('dashboard')->with('success', 'Planification mise à jour avec succès');
      }
+
+     
+public function destroy($id)
+{
+    $planification = Jury::findOrFail($id);
+    $planification->delete();
+
+    return redirect()->route('dashboard')->with('success', 'Planification supprimée avec succès');
+}
+
 }

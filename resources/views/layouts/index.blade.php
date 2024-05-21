@@ -91,7 +91,7 @@
                                     onclick="event.preventDefault(); if(confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?')) { document.getElementById('deleteUserForm{{$planification->id }}').submit(); }">
                                     <h4 class="text-danger"><i class="fas fa-trash"></i></h4>
                                 </a>
-                                <form id="deleteUserForm{{ $planification->id }}" action="" method="POST"
+                                <form id="deleteUserForm{{ $planification->id }}" action="{{ route('planifications.destroy', $planification->id) }}" method="POST"
                                     style="display: none;">
                                     @csrf
                                     @method('DELETE')

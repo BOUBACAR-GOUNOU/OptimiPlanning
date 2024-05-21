@@ -64,10 +64,10 @@ class JuryController extends Controller
             }
 
             // Retourne les binômes avec leurs jurys et les détails de soutenance sous forme de réponse JSON
-            return response()->json($binomes_jurys);
+            return back()->with('success', 'Planification réussie');
         } catch (\Exception $e) {
             // Retourne un message d'erreur en cas d'exception
-            return response()->json(['error' => "Une erreur est survenue lors de la constitution des jurys : {$e->getMessage()}"], 500);
+            return back()->with('error', 'Une erreur a été retenue lors de la constitution des juries');
         }
     }
 
@@ -175,4 +175,27 @@ class JuryController extends Controller
             'salle' => $salle->salle,
         ];
     }
+
+
+     // Met à jour une planification dans la base de données
+     public function update(Request $request, $id)
+     {
+         $request->validate([
+             'president' => 'required',
+             'examinateur' => 'required',
+             'date' => 'required',
+             'heure' => 'required',
+             'salle' => 'required',
+         ]);
+ 
+         $planification = Jury::findOrFail($id);
+         $planification->president = $request->input('president');
+         $planification->examinateur = $request->input('examinateur');
+         $planification->date_soutenance = $request->input('date');
+         $planification->heure_soutenance = $request->input('heure');
+         $planification->salle = $request->input('salle');
+         $planification->save();
+ 
+         return redirect()->route('dashboard')->with('success', 'Planification mise à jour avec succès');
+     }
 }

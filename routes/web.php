@@ -30,7 +30,7 @@ Route::post('import', [BinomeController::class, 'importExcel'])->name('import.ex
 
 use App\Http\Controllers\juryController;
 Route::post('maker-jury', [juryController::class, 'constituerJurys'])->name('maker.jury');
-
+Route::put('/planifications/{id}', [juryController::class, 'update'])->name('planifications.update');
 
 
 require __DIR__.'/auth.php';

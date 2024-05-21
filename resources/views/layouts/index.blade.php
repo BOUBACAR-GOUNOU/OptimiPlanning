@@ -17,31 +17,43 @@
             <h6 class="m-0 font-weight-bold text-primary">#</h6>
             <div class="mt-3 mb-3">
                 <button class="btn btn-primary ml-auto" id="printButton"><i class="fas fa-print"></i> Imprimer</button>
+                
+                <button class="btn btn-success  ml-auto" ><i class="fas fa-check"></i> Valider</button>
             </div>
+            
+               
+           
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
+                @if( $planifications->isEmpty())
+                <p class="text-center">Aucune planification n'est disponible.</p>
+                @else
                 <table class="table table-bordered print-only" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                        <div class="input-group justify-content-end mt-3 mb-3 mr-5">
-                            <select class="custom-select col-3" id="inputGroupSelect03">
-                                <option selected disabled>Filière</option>
-                                <option value="GT-TIC">GT-TIC</option>
-                                <option value="IIM">IIM</option>
-                                <option value="ELN">ELN</option>
-                                <option value="ELT">ELT</option>
-                            </select>
-                            <select class="custom-select col-3" id="inputGroupSelect04">
-                                <option selected disabled>Période</option>
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
-                                <option value="2025">2025</option>
-                            </select>
-                            <div class="input-group-append ml-2">
-                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                        <form action="{{route('filter')}}" method="POST">
+                            @csrf
+                            @method('POST')
+                            <div class="input-group justify-content-end mt-3 mb-3 mr-5">
+                                <select class="custom-select col-3" id="inputGroupSelect03" name="filiere">
+                                    <option selected disabled>Filière</option>
+                                    <option value="GT-TIC">GT-TIC</option>
+                                    <option value="IIM">IIM</option>
+                                    <option value="ELN">ELN</option>
+                                    <option value="ELT">ELT</option>
+                                </select>
+                                <select class="custom-select col-3" id="inputGroupSelect04" name="annee">
+                                    <option selected disabled>Période</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                </select>
+                                <div class="input-group-append ml-2">
+                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                         <h2 class="print-only text-dark">Programme des soutenances filière : GT-TIC</h2>
                         <tr>
                             <th>Noms des binômes</th>
@@ -91,7 +103,8 @@
                                     onclick="event.preventDefault(); if(confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?')) { document.getElementById('deleteUserForm{{$planification->id }}').submit(); }">
                                     <h4 class="text-danger"><i class="fas fa-trash"></i></h4>
                                 </a>
-                                <form id="deleteUserForm{{ $planification->id }}" action="{{ route('planifications.destroy', $planification->id) }}" method="POST"
+                                <form id="deleteUserForm{{ $planification->id }}"
+                                    action="{{ route('planifications.destroy', $planification->id) }}" method="POST"
                                     style="display: none;">
                                     @csrf
                                     @method('DELETE')
@@ -101,6 +114,7 @@
                         @endforeach
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>
@@ -159,7 +173,8 @@
                         <select class="form-control" id="salle" name="salle">
                             @foreach($salles as $salle)
                             <option value="{{ $salle->salle }}"
-                                {{ $planification->salle == $salle->salle ? 'selected' : '' }}>{{ $salle->salle }}</option>
+                                {{ $planification->salle == $salle->salle ? 'selected' : '' }}>{{ $salle->salle }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -182,7 +197,7 @@
         </div>
     </div>
 </div>
-
+@endif
 <script>
 document.querySelectorAll('.edit-button').forEach(button => {
     button.addEventListener('click', function() {

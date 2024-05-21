@@ -7,6 +7,7 @@ use App\Models\Binome;
 use App\Models\Enseignant;
 use App\Models\Jury;
 use App\Models\salle;
+use PhpParser\Node\Stmt\Else_;
 
 class PostController extends Controller
 {
@@ -16,20 +17,41 @@ class PostController extends Controller
         $binomes = $this->fetchBinomes();
         $enseignants = $this->fetchEnseignants();
         $salles = salle::where('annee', '=', 2024)
-                       ->get();
-        
-
-
-    return view('layouts.index', compact('planifications', 'binomes', 'enseignants','salles'));
+            ->get();
+        return view('layouts.index', compact('planifications', 'binomes', 'enseignants', 'salles'));
     }
 
+    public function filter(Request $request)
+    {
+        // Sinon, récupérer les valeurs de la requête
+        $annee = $request->input('annee');
+        $filiere = $request->input('filiere');
+        
+
+         // Récupérer les planifications selon les filtres
+         $planifications = Jury::where('filiere', $filiere)
+         ->whereYear('created_at', $annee)
+         ->orderBy('date_soutenance', 'asc')
+         ->orderBy('heure_soutenance', 'asc')
+         ->orderBy('rapporteur')
+         ->get();
+
+        $binomes = $this->fetchBinomes();
+        $enseignants = $this->fetchEnseignants();
+        $salles = salle::where('annee', '=', 2024)
+            ->get();
+        return view('layouts.index', compact('planifications', 'binomes', 'enseignants', 'salles'));
+    }
+    
 
     private function fetchPlanifications()
     {
-        $annee = date('Y');
-        $filieres = 'GT-TIC';
-        $planifications = Jury::where('filiere', $filieres)
-            ->whereYear('created_at', '=', $annee)
+            $annee = date('Y');
+            $filiere = 'GT-TIC';
+
+        // Récupérer les planifications selon les filtres
+        $planifications = Jury::where('filiere', $filiere)
+            ->whereYear('created_at', $annee)
             ->orderBy('date_soutenance', 'asc')
             ->orderBy('heure_soutenance', 'asc')
             ->orderBy('rapporteur')

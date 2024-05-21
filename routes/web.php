@@ -17,6 +17,9 @@ Route::get('/dashboard', [PostController::class, 'index'])->middleware(['auth', 
 Route::get('/importation', [PostController::class, 'importation'])->name('importer_fichiers');
 Route::get('/constitution', [PostController::class, 'constitution'])->name('constituer_jury');
 Route::get('/generation', [PostController::class, 'generation'])->name('generer_planning');
+Route::post('/dashboard', [PostController::class, 'filter'])->middleware(['auth', 'verified'])->name('filter');;
+
+
 
 
 Route::middleware('auth')->group(function () {
